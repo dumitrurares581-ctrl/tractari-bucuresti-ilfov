@@ -210,7 +210,7 @@
 <li class="flex items-center gap-2 text-on-surface-variant"><span class="material-symbols-outlined text-primary text-[18px]">check_circle</span> Preț negociabil</li>
 <li class="flex items-center gap-2 text-on-surface-variant"><span class="material-symbols-outlined text-primary text-[18px]">check_circle</span> Intervenție 30 min</li>
 </ul>
-<button class="w-full bg-white/5 border border-white/10 hover:bg-primary-container hover:text-on-primary-container text-on-surface py-3 rounded-lg font-label-bold transition-all">Apelează Intervenția</button>
+<button class="call-choice-btn w-full bg-white/5 border border-white/10 hover:bg-primary-container hover:text-on-primary-container text-on-surface py-3 rounded-lg font-label-bold transition-all">Apelează Intervenția</button>
 </div>
 </div>
 <!-- Card 2 (IMAGE 4) -->
@@ -225,7 +225,7 @@
 <li class="flex items-center gap-2 text-on-surface-variant"><span class="material-symbols-outlined text-primary text-[18px]">check_circle</span> Calibrare precisă</li>
 <li class="flex items-center gap-2 text-on-surface-variant"><span class="material-symbols-outlined text-primary text-[18px]">check_circle</span> Personal autorizat</li>
 </ul>
-<button class="w-full bg-white/5 border border-white/10 hover:bg-primary-container hover:text-on-primary-container text-on-surface py-3 rounded-lg font-label-bold transition-all">Apelează Intervenția</button>
+<button class="call-choice-btn w-full bg-white/5 border border-white/10 hover:bg-primary-container hover:text-on-primary-container text-on-surface py-3 rounded-lg font-label-bold transition-all">Apelează Intervenția</button>
 </div>
 </div>
 <!-- Card 3 -->
@@ -240,7 +240,7 @@
 <li class="flex items-center gap-2 text-on-surface-variant"><span class="material-symbols-outlined text-primary text-[18px]">check_circle</span> Orice condiții meteo</li>
 <li class="flex items-center gap-2 text-on-surface-variant"><span class="material-symbols-outlined text-primary text-[18px]">check_circle</span> Asigurare CMR</li>
 </ul>
-<button class="w-full bg-white/5 border border-white/10 hover:bg-primary-container hover:text-on-primary-container text-on-surface py-3 rounded-lg font-label-bold transition-all">Apelează Intervenția</button>
+<button class="call-choice-btn w-full bg-white/5 border border-white/10 hover:bg-primary-container hover:text-on-primary-container text-on-surface py-3 rounded-lg font-label-bold transition-all">Apelează Intervenția</button>
 </div>
 </div>
 <!-- Card 4 -->
@@ -255,7 +255,7 @@
 <li class="flex items-center gap-2 text-on-surface-variant"><span class="material-symbols-outlined text-primary text-[18px]">check_circle</span> Platformă joasă</li>
 <li class="flex items-center gap-2 text-on-surface-variant"><span class="material-symbols-outlined text-primary text-[18px]">check_circle</span> Autorizații incluse</li>
 </ul>
-<button class="w-full bg-white/5 border border-white/10 hover:bg-primary-container hover:text-on-primary-container text-on-surface py-3 rounded-lg font-label-bold transition-all">Apelează Intervenția</button>
+<button class="call-choice-btn w-full bg-white/5 border border-white/10 hover:bg-primary-container hover:text-on-primary-container text-on-surface py-3 rounded-lg font-label-bold transition-all">Apelează Intervenția</button>
 </div>
 </div>
 </div>
@@ -373,6 +373,31 @@
 </div>
 </div>
 </footer>
+<!-- Call Choice Modal -->
+<div class="fixed inset-0 z-[60] hidden items-center justify-center bg-black/70 backdrop-blur-sm px-6" id="call-choice-modal">
+<div class="glass-card rounded-xl p-6 w-full max-w-sm text-center relative industrial-shadow">
+<button aria-label="Închide" class="absolute top-3 right-3 w-8 h-8 flex items-center justify-center rounded-full bg-white/5 hover:bg-white/10 text-on-surface-variant hover:text-on-surface transition-colors" id="call-choice-close">
+<span class="material-symbols-outlined text-[20px]">close</span>
+</button>
+<h3 class="font-headline-md text-headline-md mb-6">Alege pe cine suni</h3>
+<div class="flex flex-col gap-3">
+<a class="flex items-center justify-between gap-3 bg-white/5 hover:bg-primary-container hover:text-on-primary-container rounded-lg px-5 py-4 transition-all" href="tel:0763866687">
+<span class="text-left">
+<span class="block font-label-bold text-label-bold">Dumitrean Sorin</span>
+<span class="block text-label-sm text-on-surface-variant">Dispecerat Non-Stop</span>
+</span>
+<span class="font-headline-md text-[16px] whitespace-nowrap">0763 866 687</span>
+</a>
+<a class="flex items-center justify-between gap-3 bg-white/5 hover:bg-primary-container hover:text-on-primary-container rounded-lg px-5 py-4 transition-all" href="tel:0771670163">
+<span class="text-left">
+<span class="block font-label-bold text-label-bold">Dumitrean Marius</span>
+<span class="block text-label-sm text-on-surface-variant">Intervenții Mobile</span>
+</span>
+<span class="font-headline-md text-[16px] whitespace-nowrap">0771 670 163</span>
+</a>
+</div>
+</div>
+</div>
 <!-- Interactive Elements script -->
 <script>
         // Smooth navbar appearance on scroll
@@ -431,6 +456,28 @@
         window.addEventListener('scroll', updateNavCollapse);
         window.addEventListener('resize', updateNavCollapse);
         updateNavCollapse();
+
+        // Call choice modal (Servicii cards)
+        const callChoiceModal = document.getElementById('call-choice-modal');
+        const callChoiceClose = document.getElementById('call-choice-close');
+        function openCallChoice() {
+            callChoiceModal.classList.remove('hidden');
+            callChoiceModal.classList.add('flex');
+        }
+        function closeCallChoice() {
+            callChoiceModal.classList.add('hidden');
+            callChoiceModal.classList.remove('flex');
+        }
+        document.querySelectorAll('.call-choice-btn').forEach((btn) => {
+            btn.addEventListener('click', openCallChoice);
+        });
+        callChoiceClose.addEventListener('click', closeCallChoice);
+        callChoiceModal.addEventListener('click', (e) => {
+            if (e.target === callChoiceModal) closeCallChoice();
+        });
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeCallChoice();
+        });
     </script>
 
 
