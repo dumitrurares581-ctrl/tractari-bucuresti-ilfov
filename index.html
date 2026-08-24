@@ -658,6 +658,9 @@
                 galleryPanels.forEach((panel) => {
                     panel.classList.toggle('hidden', panel.dataset.panel !== target);
                 });
+                if (target !== 'video') {
+                    document.querySelectorAll('#video-scroll-row video').forEach((v) => v.pause());
+                }
             });
         });
 
