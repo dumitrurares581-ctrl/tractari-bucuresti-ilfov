@@ -163,6 +163,15 @@
 <a class="text-on-surface font-headline-md text-headline-md" href="#contact">Contact</a>
 <a class="bg-primary-container text-on-primary-container font-label-bold text-label-bold px-8 py-3 rounded-full mt-4" href="tel:0763866687">Suna Acum: 0763 866 687</a>
 </div>
+<!-- Vulcanizare Mobilă Notification Widget -->
+<div class="fixed top-28 right-4 md:right-8 z-30 flex items-start justify-end gap-2" id="vulcanizare-widget">
+<button class="hero-call-btn glass-card industrial-shadow rounded-2xl rounded-tr-sm px-4 py-3 max-w-[200px] text-left text-on-surface text-label-sm leading-snug" id="vulcanizare-text-bubble">
+                Dacă ai nevoie de vulcanizare mobilă <span class="font-bold underline">dă click aici</span>.
+            </button>
+<button aria-label="Vulcanizare mobilă" class="w-14 h-14 rounded-full overflow-hidden border-2 border-primary shadow-lg flex-shrink-0" id="vulcanizare-widget-icon">
+<img alt="Vulcanizare Mobilă" class="w-full h-full object-cover" src="assets/img/img11.jpeg">
+</button>
+</div>
 <!-- Hero Section -->
 <header class="relative h-screen flex items-center overflow-hidden" id="home">
 <div class="absolute inset-0 z-0">
@@ -697,6 +706,27 @@
         heroCallModal.addEventListener('click', (e) => {
             if (e.target === heroCallModal) closeHeroCall();
         });
+
+        // Vulcanizare mobila notification widget
+        const vulcBubble = document.getElementById('vulcanizare-text-bubble');
+        const vulcIcon = document.getElementById('vulcanizare-widget-icon');
+        let vulcBubbleVisible = true;
+
+        function showVulcBubble() {
+            vulcBubble.classList.remove('hidden');
+            vulcBubbleVisible = true;
+        }
+        function hideVulcBubble() {
+            vulcBubble.classList.add('hidden');
+            vulcBubbleVisible = false;
+        }
+
+        vulcIcon.addEventListener('click', () => {
+            if (!vulcBubbleVisible) showVulcBubble();
+        });
+        window.addEventListener('scroll', () => {
+            if (vulcBubbleVisible && window.scrollY > 20) hideVulcBubble();
+        }, { passive: true });
 
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') { closeCallChoice(); closeHeroCall(); }
